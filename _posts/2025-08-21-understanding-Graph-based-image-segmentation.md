@@ -30,7 +30,7 @@ Given an image I with dimensions H times W, we create a graph $G = (V, E, w)$ wh
 
 - $V = \{(r,c) : 0 \leq r < H, 0 \leq c < W\}$ (all pixel positions)
 - $E$ contains edges between adjacent pixels
-- $w(u,v) = |I(u) - I(v)|$ (absolute difference in pixel intensities)
+ - w(u,v) = |I(u) - I(v)| (absolute difference in pixel intensities)
 
 The weight function measures **dissimilarity**: 
 - Weight = 0 means pixels are identical
