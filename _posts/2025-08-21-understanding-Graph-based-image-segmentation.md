@@ -2,7 +2,7 @@
 layout: post
 title: "Graph-Based Image Segmentation: From Pixels to Meaningful Regions"
 date: 2025-08-21 10:00:00 +0530
-math:true
+math: true
 categories: [image-segmentation, graphs]
 ---
 
