@@ -18,7 +18,7 @@ For images, we can think of:
 
 ### Mathematical Representation
 
-Given an image I with dimensions H \times W$, we create a graph $G = (V, E, w)$ where:
+Given an image I with dimensions H \times W, we create a graph $G = (V, E, w)$ where:
 
 - $V = \{(r,c) : 0 \leq r < H, 0 \leq c < W\}$ (all pixel positions)
 - $E$ contains edges between adjacent pixels
@@ -27,7 +27,15 @@ Given an image I with dimensions H \times W$, we create a graph $G = (V, E, w)$ 
 The weight function measures **dissimilarity**: 
 - Weight = 0 means pixels are identical
 - Higher weight means pixels are more different
+### Neighborhood Systems
 
+For computational efficiency, we usually consider local neighborhood systems. The most common choices are:
+
+**4-connectivity (Von Neumann neighborhood):**
+$$\mathcal{N}_4(i,j) = \{(i \pm 1, j), (i, j \pm 1)\} \cap \Omega$$
+
+**8-connectivity (Moore neighborhood):**
+$$\mathcal{N}_8(i,j) = \{(i+p, j+q) : p,q \in \{-1,0,1\}, (p,q) \neq (0,0)\} \cap \Omega$$
 ## Building the Graph: Step by Step
 
 Let's start with a simple 4×4 black-white image to understand the process:
