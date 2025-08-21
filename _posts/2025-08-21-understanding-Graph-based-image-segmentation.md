@@ -1,3 +1,10 @@
+---
+layout: post
+title: "Graph-Based Image Segmentation: From Pixels to Meaningful Regions"
+date: 2025-08-21 10:00:00 +0530
+categories: [image-segmentation, graphs]
+---
+
 # Graph-Based Image Segmentation: From Pixels to Meaningful Regions
 
 Image segmentation is a fundamental computer vision task where we divide an image into meaningful regions. Instead of looking at individual pixels, we want to group similar pixels together to form coherent segments. One elegant approach treats this as a graph problem, where we represent the image as a network and use mathematical principles to find natural groupings.
@@ -18,7 +25,7 @@ For images, we can think of:
 
 ### Mathematical Representation
 
-Given an image I with dimensions H \times W, we create a graph $G = (V, E, w)$ where:
+Given an image I with dimensions H times W, we create a graph $G = (V, E, w)$ where:
 
 - $V = \{(r,c) : 0 \leq r < H, 0 \leq c < W\}$ (all pixel positions)
 - $E$ contains edges between adjacent pixels
@@ -36,6 +43,7 @@ $$\mathcal{N}_4(i,j) = \{(i \pm 1, j), (i, j \pm 1)\} \cap \Omega$$
 
 **8-connectivity (Moore neighborhood):**
 $$\mathcal{N}_8(i,j) = \{(i+p, j+q) : p,q \in \{-1,0,1\}, (p,q) \neq (0,0)\} \cap \Omega$$
+* We use 4-connectivity neighborhood system here 
 ## Building the Graph: Step by Step
 
 Let's start with a simple 4×4 black-white image to understand the process:
@@ -200,7 +208,7 @@ def plot_segments(step_title, segments):
 
 This function creates a **segmentation map** where each segment gets a unique color.
 
-### Expected Results for Our Example
+###  Results for Our Example
 
 With threshold = 0.5:
 
@@ -210,19 +218,17 @@ With threshold = 0.5:
 4. **Step 17**: Try to merge black and white regions (weight = 1 > 0.5) → **STOP**
 5. **Final**: 2 segments (black region + white region)
 
-## Real-World Applications
+![Result 1](/assets/images_blog/step0_initial.png)  
+*Initial state: each pixel is its own node.*
 
-### Medical Imaging
-- **Tumor detection**: Segment abnormal tissue from healthy tissue
-- **Organ boundaries**: Identify heart, liver, brain regions
+![Result 2](/assets/images_blog/step1_merge.png)  
+*First merge step.*
 
-### Autonomous Vehicles  
-- **Road segmentation**: Separate road from sidewalk, buildings
-- **Object detection**: Identify cars, pedestrians, traffic signs
+![Result 3](/assets/images_blog/step17_merge.png)  
+*Intermediate merge step (step 17).*
 
-### Satellite Imagery
-- **Land use classification**: Forest, urban, agricultural areas
-- **Change detection**: Monitor deforestation, urban growth
+![Result 4](/assets/images_blog/final_segmentation.png)  
+*Final segmentation result.*
 
 ## Extensions and Improvements
 
@@ -232,14 +238,6 @@ Instead of fixed threshold, use segment-dependent thresholds:
 $$\tau(S) = \max_{e \in S} w(e) + \frac{k}{|S|}$$
 
 where $k$ controls preference for larger segments.
-
-### Multi-Scale Analysis
-
-Apply algorithm with multiple thresholds:
-$$\tau_1 < \tau_2 < \tau_3 < \ldots$$
-
-Creates hierarchy from fine details to coarse regions.
-
 ### Color Images
 
 For RGB images, modify weight calculation:
@@ -326,6 +324,7 @@ for u, v, data in edges_sorted:
 # Final result
 plot_segments("Final Segmentation", segments)
 ```
+
 
 ## Conclusion
 
